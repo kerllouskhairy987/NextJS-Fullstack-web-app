@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 // Actions
-import { createTodoAction } from "@/actions/todo.actions";
+import { updateTodoAction } from "@/actions/todo.actions";
 // Zod
 import { zodResolver } from "@hookform/resolvers/zod";
 // VALIDATION SCHEMA
@@ -36,17 +36,19 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "./ui/checkbox";
 // icons
-import { Plus } from "lucide-react";
+import { Pen } from "lucide-react";
+// Interfaces And Types
+import { ITodo } from "@/interfaces";
 
-const AddTodoForm = () => {
+const EditTodoForm = ({ todo }: { todo: ITodo }) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
     // DEFAULT VALUES
     const defaultValues: Partial<todoFormValues> = {
-        title: "",
-        body: "",
-        completed: false,
+        title: todo.title,
+        body: todo.body as string,
+        completed: todo.completed,
     };
 
     // FORM // ***** FIRST STEP
@@ -57,8 +59,10 @@ const AddTodoForm = () => {
     });
 
     const onSubmit = async (data: todoFormValues) => {
+        console.log(data)
         setLoading(true);
-        await createTodoAction(data);
+        // await createTodoAction(data);
+        await updateTodoAction({ id: todo.id, ...data });
         setLoading(false);
         setOpen(false);
     };
@@ -67,12 +71,12 @@ const AddTodoForm = () => {
         <Dialog open={open} onOpenChange={setOpen}>
             <form>
                 <DialogTrigger asChild>
-                    <Button> <Plus /> New Todo </Button>
+                    <Button> <Pen /> </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Adding Todo</DialogTitle>
-                        <DialogDescription>Add a new task to your to-do list and stay organized.</DialogDescription>
+                        <DialogTitle>Edit This Todo</DialogTitle>
+                        <DialogDescription>Edit task to your to-do list and stay organized.</DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4">
                         <Form {...form}>
@@ -133,7 +137,7 @@ const AddTodoForm = () => {
                                     <DialogClose asChild>
                                         <Button variant="outline">Cancel</Button>
                                     </DialogClose>
-                                    <Button type="submit" disabled={loading}>{loading ? <><Spinner /> Saving</> : "Save Changes"}</Button>
+                                    <Button type="submit" disabled={loading}>{loading ? <><Spinner /> Updating</> : "Save Changes"}</Button>
                                 </DialogFooter>
                             </form>
                         </Form>
@@ -144,4 +148,4 @@ const AddTodoForm = () => {
     );
 };
 
-export default AddTodoForm;
+export default EditTodoForm;

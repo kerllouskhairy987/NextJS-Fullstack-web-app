@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 
 const prisma = new PrismaClient()
 
-// CRUD Operations
+// ------------------------Start Get/Read------------------------------- //
 export const getTodoListAction = async () => {
     // Error Handling
     return await prisma.todo.findMany({
@@ -15,6 +15,7 @@ export const getTodoListAction = async () => {
         }
     });
 }
+// ------------------------Start Create------------------------------- //
 export const createTodoAction = async ({ title, body, completed }: todoFormValues) => {
     await prisma.todo.create({
         data: {
@@ -26,7 +27,21 @@ export const createTodoAction = async ({ title, body, completed }: todoFormValue
     // Update UI
     revalidatePath('/')
 }
-export const updateTodoAction = async () => { }
+// -----------------------Start Update-------------------------------- //
+export const updateTodoAction = async ({ id, title, body, completed }: todoFormValues & { id: string }) => {
+    await prisma.todo.update({
+        where: {
+            id
+        },
+        data: {
+            title,
+            body,
+            completed,
+        }
+    })
+    revalidatePath('/')
+}
+// -----------------------Start Delete-------------------------------- //
 export const deleteTodoAction = async ({ id }: { id: string }) => {
     await prisma.todo.delete({
         where: {

@@ -2,27 +2,29 @@
 
 // React Hooks
 import { useState } from "react";
+// Actions
+import { deleteTodoAction } from "@/actions/todo.actions";
 // ShadCN UI
 import { Button } from "./ui/button"
 // Components
 import { Spinner } from "./ui/Spinner";
+import EditTodoForm from "./EditTodoForm";
 // Icons
 import { Pen, Trash } from "lucide-react"
-import { deleteTodoAction } from "@/actions/todo.actions";
+// Interfaces And Types
+import { ITodo } from "@/interfaces";
 
 
-const TodosTableActions = ({ id }: { id: string }) => {
+const TodosTableActions = ({ todo }: { todo: ITodo }) => {
     const [loading, setLoading] = useState(false);
 
     return (
         <>
-            <Button size={"icon"}>
-                <Pen />
-            </Button>
+            <EditTodoForm todo={todo} />
             <Button size={"icon"} variant={"destructive"}
                 onClick={async () => {
                     setLoading(true);
-                    await deleteTodoAction({ id });
+                    await deleteTodoAction({ id: todo.id });
                     setLoading(false);
                 }}
                 disabled={loading}
