@@ -1,3 +1,5 @@
+// Components
+import TodosTableActions from "./TodosTableActions";
 // ShadCN UI
 import {
     Table,
@@ -9,16 +11,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button } from "./ui/button"
-// Icons
-import { Pen, Trash } from "lucide-react"
-import { getTodoListAction } from "@/actions/todo.actions"
+import { Badge } from "./ui/badge";
 // Interfaces And Types
 import { ITodo } from "@/interfaces";
-import { Badge } from "./ui/badge";
 
 
-export default async function TodosTable({ todos }: { todos: ITodo[] }) {
+export default function TodosTable({ todos }: { todos: ITodo[] }) {
 
     return (
         <Table>
@@ -40,12 +38,7 @@ export default async function TodosTable({ todos }: { todos: ITodo[] }) {
                             {todo.completed ? <Badge>Completed</Badge> : <Badge variant={"secondary"}>Uncompleted</Badge>}
                         </TableCell>
                         <TableCell className="flex justify-end items-center space-x-2">
-                            <Button size={"icon"}>
-                                <Pen />
-                            </Button>
-                            <Button size={"icon"} variant={"destructive"}>
-                                <Trash />
-                            </Button>
+                            <TodosTableActions id={todo.id} />
                         </TableCell>
                     </TableRow>
                 ))}
