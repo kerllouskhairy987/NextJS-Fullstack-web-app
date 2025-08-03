@@ -1,15 +1,16 @@
+import { getTodoListAction } from "@/actions/todo.actions";
 import AddTodoForm from "@/components/AddTodoForm";
-import { TodoTable } from "@/components/TodoTable";
+import TodosTable from "@/components/TodoTable";
 
-export default function Home() {
-  // const todos = await getTodoListAction()
+export default async function Home() {
+  const todos = await getTodoListAction()
 
   return (
     <div>
       {/* <pre>{JSON.stringify(todos, undefined, 2)}</pre> */}
 
       <AddTodoForm />
-      <TodoTable />
+      <TodosTable todos={todos} />
     </div>
   );
 }
