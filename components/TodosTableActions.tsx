@@ -13,7 +13,6 @@ import { deleteTodoAction } from "@/actions/todo.actions";
 
 const TodosTableActions = ({ id }: { id: string }) => {
     const [loading, setLoading] = useState(false);
-    const [disableBtn, setDisableBtn] = useState(false);
 
     return (
         <>
@@ -23,12 +22,10 @@ const TodosTableActions = ({ id }: { id: string }) => {
             <Button size={"icon"} variant={"destructive"}
                 onClick={async () => {
                     setLoading(true);
-                    setDisableBtn(true);
                     await deleteTodoAction({ id });
                     setLoading(false);
-                    setDisableBtn(false);
                 }}
-                disabled={disableBtn}
+                disabled={loading}
             >
                 {loading ? <Spinner /> : <Trash />}
             </Button>

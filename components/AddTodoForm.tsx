@@ -1,6 +1,7 @@
 "use client";
 
 // Hooks
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 // Zod
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,8 +34,12 @@ import { Checkbox } from "./ui/checkbox";
 // icons
 import { Plus } from "lucide-react";
 import { createTodoAction } from "@/actions/todo.actions";
+import { Spinner } from "./ui/Spinner";
 
 const AddTodoForm = () => {
+    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+
     // DEFAULT VALUES
     const defaultValues: Partial<todoFormValues> = {
         title: "",
@@ -50,18 +55,17 @@ const AddTodoForm = () => {
     });
 
     const onSubmit = async (data: todoFormValues) => {
-        console.log(data)
+        setLoading(true);
         await createTodoAction(data);
+        setLoading(false);
+        setOpen(false);
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <form>
                 <DialogTrigger asChild>
-                    <Button>
-                        {" "}
-                        <Plus /> New Todo
-                    </Button>
+                    <Button> <Plus /> New Todo </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -114,7 +118,7 @@ const AddTodoForm = () => {
                                     control={form.control}
                                     name="completed"
                                     render={({ field }) => (
-                                        <FormItem >
+                                        <FormItem className="flex">
                                             <FormControl>
                                                 <Checkbox checked={field.value} onCheckedChange={field.onChange} {...field} />
                                             </FormControl>
@@ -127,7 +131,7 @@ const AddTodoForm = () => {
                                     <DialogClose asChild>
                                         <Button variant="outline">Cancel</Button>
                                     </DialogClose>
-                                    <Button type="submit">Save changes</Button>
+                                    <Button type="submit" disabled={loading}>{loading ? <><Spinner /> Saving</> : "Save Changes"}</Button>
                                 </DialogFooter>
                             </form>
                         </Form>

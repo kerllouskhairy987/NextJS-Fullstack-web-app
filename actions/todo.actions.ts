@@ -8,8 +8,12 @@ const prisma = new PrismaClient()
 
 // CRUD Operations
 export const getTodoListAction = async () => {
-    return await prisma.todo.findMany();
     // Error Handling
+    return await prisma.todo.findMany({
+        orderBy: {
+            createdAt: 'desc'   // kero will add option to sort by [asc, desc] in drop down ---
+        }
+    });
 }
 export const createTodoAction = async ({ title, body, completed }: todoFormValues) => {
     await prisma.todo.create({
