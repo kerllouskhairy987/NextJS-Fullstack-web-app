@@ -29,6 +29,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "./ui/checkbox";
 // icons
 import { Plus } from "lucide-react";
 import { createTodoAction } from "@/actions/todo.actions";
@@ -36,8 +37,9 @@ import { createTodoAction } from "@/actions/todo.actions";
 const AddTodoForm = () => {
     // DEFAULT VALUES
     const defaultValues: Partial<todoFormValues> = {
-        title: "DEFAULT TITLE",
-        body: "DEFAULT BODY"
+        title: "",
+        body: "",
+        completed: false,
     };
 
     // FORM // ***** FIRST STEP
@@ -103,6 +105,20 @@ const AddTodoForm = () => {
                                             <FormDescription>
                                                 You can write a short description about your next todo
                                             </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="completed"
+                                    render={({ field }) => (
+                                        <FormItem >
+                                            <FormControl>
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} {...field} />
+                                            </FormControl>
+                                            <FormLabel> completed </FormLabel>
                                             <FormMessage />
                                         </FormItem>
                                     )}
