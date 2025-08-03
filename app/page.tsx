@@ -1,13 +1,15 @@
 import AddTodoForm from "@/components/AddTodoForm";
+import { TodoTable } from "@/components/TodoTable";
 
 export default function Home() {
   // const todos = await getTodoListAction()
 
   return (
-    <div className="container">
+    <div>
       {/* <pre>{JSON.stringify(todos, undefined, 2)}</pre> */}
 
       <AddTodoForm />
+      <TodoTable />
     </div>
   );
 }
