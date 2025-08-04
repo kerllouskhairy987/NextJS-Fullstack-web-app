@@ -15,8 +15,12 @@ import { Badge } from "./ui/badge";
 // Interfaces And Types
 import { ITodo } from "@/interfaces";
 
+interface IProps {
+    todos: ITodo[],
+    totalCount: number
+}
 
-export default function TodosTable({ todos }: { todos: ITodo[] }) {
+export default function TodosTable({ todos, totalCount }: IProps) {
 
     return (
         <Table>
@@ -46,7 +50,7 @@ export default function TodosTable({ todos }: { todos: ITodo[] }) {
             <TableFooter>
                 <TableRow>
                     <TableCell colSpan={3}>Total</TableCell>
-                    <TableCell className="text-right">{todos.length}</TableCell>
+                    <TableCell className="text-right">{totalCount}</TableCell>
                 </TableRow>
             </TableFooter>
         </Table>
