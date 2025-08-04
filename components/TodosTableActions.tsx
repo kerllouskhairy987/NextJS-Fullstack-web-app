@@ -10,7 +10,7 @@ import { Button } from "./ui/button"
 import { Spinner } from "./ui/Spinner";
 import EditTodoForm from "./EditTodoForm";
 // Icons
-import { Pen, Trash } from "lucide-react"
+import { Trash } from "lucide-react"
 // Interfaces And Types
 import { ITodo } from "@/interfaces";
 
