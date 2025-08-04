@@ -8,12 +8,13 @@ export default async function Home() {
   const todos = await getUserTodoListAction({ userId })
 
   return (
-    <div>
+    <div className="container mx-auto px-2 sm:px-5 overflow-hidden">
       {/* <pre>{JSON.stringify(todos, undefined, 2)}</pre> */}
 
-      <AddTodoForm userId={userId} />
+      <div className="flex items-center justify-center my-3">
+        <AddTodoForm userId={userId} />
+      </div>
       <TodosTable todos={todos} />
     </div>
   );
 }
-// font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20

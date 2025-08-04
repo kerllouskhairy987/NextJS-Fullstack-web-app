@@ -3,7 +3,7 @@ import { ModeToggle } from './ModeToggle'
 
 const Nav = () => {
     return (
-        <div className='flex items-center justify-between py-10'>
+        <div className='flex items-center justify-between py-10 px-2'>
             <ModeToggle />
             <SignedIn>
                 <UserButton />

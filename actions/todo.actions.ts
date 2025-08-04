@@ -8,9 +8,7 @@ const prisma = new PrismaClient()
 
 // ------------------------Start Get/Read------------------------------- //
 export const getUserTodoListAction = async ({ userId }: { userId: string | null }) => {
-    // if (!userId) return [];
-    // Error Handling
-
+    // Error Handling DONE BY USING GLOBAL ERROR IN NEXTJS
 
     return await prisma.todo.findMany({
         where: {
