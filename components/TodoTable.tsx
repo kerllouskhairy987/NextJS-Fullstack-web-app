@@ -29,7 +29,7 @@ export default function TodosTable({ todos }: { todos: ITodo[] }) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {todos.length !== 0 && todos.map((todo) => (
+                {todos.length !== 0 && todos?.map((todo) => (
                     <TableRow key={todo?.id}>
                         <TableCell className="font-medium">{todo?.id}</TableCell>
                         <TableCell>{todo?.title}</TableCell>
