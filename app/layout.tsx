@@ -10,9 +10,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { ThemeProvider } from "@/providers/theme-provider";
-import { ModeToggle } from "@/components/ModeToggle";
 
 import "./globals.css";
+import Nav from '@/components/Nav';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,10 +38,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto px-2 sm:px-5 `}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto px-2 sm:px-5 overflow-hidden`}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <ModeToggle />
+            <Nav />
             {children}
           </ThemeProvider>
         </body>

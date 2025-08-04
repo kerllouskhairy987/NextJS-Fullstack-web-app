@@ -7,18 +7,25 @@ import { revalidatePath } from 'next/cache';
 const prisma = new PrismaClient()
 
 // ------------------------Start Get/Read------------------------------- //
-export const getTodoListAction = async () => {
+export const getUserTodoListAction = async ({ userId }: { userId: string | null }) => {
+    // if (!userId) return [];
     // Error Handling
+
+
     return await prisma.todo.findMany({
+        where: {
+            user_id: userId as string,
+        },
         orderBy: {
             createdAt: 'desc'   // kero will add option to sort by [asc, desc] in drop down ---
         }
     });
 }
 // ------------------------Start Create------------------------------- //
-export const createTodoAction = async ({ title, body, completed }: todoFormValues) => {
+export const createTodoAction = async ({ title, body, completed }: todoFormValues, { userId }: { userId: string | null }) => {
     await prisma.todo.create({
         data: {
+            user_id: userId as string,
             title,
             body,
             completed,

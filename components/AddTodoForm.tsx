@@ -38,7 +38,7 @@ import { Checkbox } from "./ui/checkbox";
 // icons
 import { Plus } from "lucide-react";
 
-const AddTodoForm = () => {
+const AddTodoForm = ({ userId }: { userId: string | null }) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
@@ -58,7 +58,7 @@ const AddTodoForm = () => {
 
     const onSubmit = async (data: todoFormValues) => {
         setLoading(true);
-        await createTodoAction(data);
+        await createTodoAction(data, { userId });
         setLoading(false);
         setOpen(false);
     };
